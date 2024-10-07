@@ -1,0 +1,155 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden; 
+}
+
+/* Container styling */
+.container {
+    width: 100%;
+    max-width: 90%;
+    height: auto; 
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Headings styling */
+h1 {
+    font-size: 22px; 
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+h2 {
+    font-size: 20px; 
+    color: #5cb85c;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Table styling */
+.table-container {
+    margin-top: 10px;
+    overflow-y: auto; 
+    max-height: 380px; 
+    flex-grow: 1;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px; 
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px; 
+    text-align: left;
+}
+
+table th {
+    background-color: #5cb85c;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Flash message styling */
+.alert {
+    padding: 10px;
+    background-color: #f44336;
+    color: white;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+/* Pagination controls */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    padding: 8px 12px; 
+    margin: 0 5px; 
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.pagination span {
+    margin: 0 10px; 
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+/* Button styles */
+.btn {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 30px auto 10px auto; 
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    display: block;
+    width: 120px; 
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    table th, table td {
+        padding: 6px;
+    }
+
+    .pagination button {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .pagination span {
+        font-size: 12px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+}

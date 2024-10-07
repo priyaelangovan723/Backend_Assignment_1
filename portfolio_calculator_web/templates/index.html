@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Your Portfolio Transactions</h1>
+        <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+            <div class="file-upload">
+                <label for="file">Select JSON File:</label>
+                <input type="file" name="file" id="file" accept=".json" required>
+            </div>
+            <button type="submit" class="btn">Upload and Calculate</button>
+        </form>
+    </div>
+</body>
+</html>

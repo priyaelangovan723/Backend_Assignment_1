@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/results.css') }}">
+    <script>
+        // Function to implement pagination and error handling
+        document.addEventListener("DOMContentLoaded", function() {
+            const rowsPerPage = 5; // Updated to 5 entries per page
+            let currentPage = 1;
+
+            function renderTable(page) {
+                const tableRows = document.querySelectorAll("tbody tr");
+                const totalPages = Math.ceil(tableRows.length / rowsPerPage);
+
+                // If there are no rows (results), display an error message
+                if (tableRows.length === 0) {
+                    document.querySelector('.table-container').innerHTML = "<p>No results found.</p>";
+                    document.querySelector('.pagination').style.display = "none"; // Hide pagination if no data
+                    return;
+                }
+
+                // Hide all rows
+                tableRows.forEach((row, index) => {
+                    row.style.display = "none";
+                });
+
+                // Show the relevant rows for the current page
+                const start = (page - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+                for (let i = start; i < end && i < tableRows.length; i++) {
+                    tableRows[i].style.display = "table-row";
+                }
+
+                // Update page display
+                document.getElementById("currentPage").textContent = page;
+                document.getElementById("totalPages").textContent = totalPages;
+
+                // Disable/Enable buttons based on the page number
+                document.getElementById("prevBtn").disabled = page === 1;
+                document.getElementById("nextBtn").disabled = page === totalPages;
+            }
+
+            // Event listeners for pagination buttons
+            document.getElementById("prevBtn").addEventListener("click", function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable(currentPage);
+                }
+            });
+
+            document.getElementById("nextBtn").addEventListener("click", function() {
+                const tableRows = document.querySelectorAll("tbody tr");
+                const totalPages = Math.ceil(tableRows.length / rowsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable(currentPage);
+                }
+            });
+
+            // Initial render
+            renderTable(currentPage);
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Portfolio Results</h1>
+
+        <!-- Error/Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        {% for category, message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <h2>Portfolio Summary</h2>
+        {% if summary %}
+            <p><strong>Total Portfolio Value:</strong> ₹{{ summary['Total Portfolio Value'] }}</p>
+            <p><strong>Total Portfolio Gain:</strong> ₹{{ summary['Total Portfolio Gain'] }}</p>
+        {% else %}
+            <p>No portfolio summary available.</p>
+        {% endif %}
+
+        <h2>Details for Each Fund</h2>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Folio</th>
+                        <th>Scheme Name</th>
+                        <th>Net Units</th>
+                        <th>Total Invested</th>
+                        <th>Total Redeemed</th>
+                        <th>Net Value Today</th>
+                        <th>Gain/Loss</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if results %}
+                        {% for result in results %}
+                        <tr>
+                            <td>{{ result['folio'] }}</td>
+                            <td>{{ result['schemeName'] }}</td>
+                            <td>{{ result['Net units'] }}</td>
+                            <td>₹{{ result['Total invested'] }}</td>
+                            <td>₹{{ result['Total redeemed'] }}</td>
+                            <td>₹{{ result['Net Value as of today'] }}</td>
+                            <td>₹{{ result['Gain/Loss'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="7">No fund details available.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            <button id="prevBtn" class="btn" disabled>Previous</button>
+            <span>Page <span id="currentPage">1</span> of <span id="totalPages"></span></span>
+            <button id="nextBtn" class="btn">Next</button>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="btn">Go Back</a>
+    </div>
+</body>
+</html>
