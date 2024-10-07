@@ -1,5 +1,6 @@
 **Portfolio Calculator**
 **Overview**
+
 The Portfolio Calculator is a Python-based application that allows users to analyze their investment portfolios by calculating the current value and gain/loss based on transaction data provided in a JSON file. The application fetches the latest Net Asset Values (NAV) of mutual funds using the mstarpy library and presents a detailed report through a graphical user interface (GUI) built with Tkinter.
 
 **Features**
